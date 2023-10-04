@@ -67,4 +67,41 @@ class TareaController extends Controller
         }
         return response()->json(['Tareas' => $tarea]);
     }
+
+    use Illuminate\Http\Request;
+    use App\Models\Tarea; // Reemplaza 'Tarea' con el modelo de tu tarea
+    
+    public function actualizarTarea($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'Titulo' => 'sometimes|string|max:255',
+            'Contenido' => 'sometimes|string',
+            'autor' => 'sometimes|string|max:255',
+            'Estado' => 'sometimes|boolean',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+    
+        $tarea = Tarea::findOrFail($id);
+    
+        if ($request->has('Titulo')) {
+            $tarea->Titulo = $request->input('titulo');
+        }
+        if ($request->has('contenido')) {
+            $tarea->Contenido = $request->input('Contenido');
+        }
+        if ($request->has('autor')) {
+            $tarea->autor = $request->input('autor');
+        }
+        if ($request->has('estado')) {
+            $tarea->Estado = $request->input('Estado');
+        }
+    
+        $tarea->save();
+    
+        return response()->json(['Tarea actualizada' => $tarea], 200);
+    }
+    
 }
