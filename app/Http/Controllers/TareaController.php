@@ -26,4 +26,12 @@ class TareaController extends Controller
         $tareas = Tarea::all();
         return response()->json(['Tareas' => $tareas]);
     }
+
+    public function buscarTarea($id) {
+        $tarea = Tarea::find($id);
+        if(!$tarea) {
+            return "No se encontro una tarea con el id" . $id;
+        }
+        return response()->json(['Tarea' => $tarea]);
+    }
 }
