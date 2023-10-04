@@ -16,3 +16,9 @@ use App\Http\Controllers\TareaController;
 */
 
 Route::post('/tarea', [TareaController::class, 'crearTarea']);
+Route::get('/tarea', [TareaController::class, 'listarTareas']);
+Route::get('/tarea/{id}', [TareaController::class, 'buscarTarea']);
+Route::get('/tarea/{titulo}', [TareaController::class, 'buscarTareaPorTitulo']);
+Route::get('/tarea/{estado}', [TareaController::class, 'buscarTareaPorEstado']);
+Route::get('/tarea/{autor}', [TareaController::class, 'buscarTareaPorAutor']);
+
