@@ -10,15 +10,20 @@ class TareaController extends Controller
 {
     public function crearTarea(Request $request) {
         $validator = Validator::make($request->all(), [
-            'Titulo' => 'required',
-            'Contenido' => 'required',
-            'Estado' => 'required',
-            'autor' => 'required'
+            'Titulo' => 'string|required',
+            'Contenido' => 'string|required',
+            'Estado' => 'string|required',
+            'autor' => 'string|required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
         }
         $tarea = Tarea::create($request->all());
         return response()->json(['Tarea creada' => $tarea]);
+    }
+
+    public function listarTareas() {
+        $tareas = Tarea::all();
+        return response()->json(['Tareas' => $tareas]);
     }
 }
